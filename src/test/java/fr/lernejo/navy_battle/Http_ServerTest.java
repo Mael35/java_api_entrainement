@@ -1,10 +1,12 @@
 package fr.lernejo.navy_battle;
 
+import com.sun.net.httpserver.HttpServer;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.util.concurrent.Executors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,13 +25,19 @@ class Http_ServerTest {
 
     @Test
     void Port_True() throws Exception {
-        Http_Server.createServer(9010);
+        HttpServer server = HttpServer.create(new InetSocketAddress(9010), 0);
+        server.setExecutor(Executors.newFixedThreadPool(1));
+        server.createContext("/ping", new CallHandler());
+        server.start();
         assertTrue(isActive(9010));
     }
 
     @Test
     void Port_False() throws Exception {
-        Http_Server.createServer(9020);
+        HttpServer server = HttpServer.create(new InetSocketAddress(9020), 0);
+        server.setExecutor(Executors.newFixedThreadPool(1));
+        server.createContext("/ping", new CallHandler());
+        server.start();
         assertFalse(isActive(9030));
     }
 }
