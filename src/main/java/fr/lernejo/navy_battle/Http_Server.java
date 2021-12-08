@@ -15,7 +15,7 @@ public class Http_Server  {
             throw new NumberFormatException("The port is not a number !");
         }
         if (this.port < 1024 || this.port > 65535){
-            throw new ArithmeticException("The number of the port is not correct !");
+            throw new ArithmeticException("The number of the port is not available (between 1024 and 65535) !");
         }
     }
 
