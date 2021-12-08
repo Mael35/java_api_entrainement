@@ -1,29 +1,19 @@
 package fr.lernejo.navy_battle;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class LauncherTest {
-    boolean CheckArg(String... args) {
-        return (args.length == 1);
+
+    @Test
+    void Argument_True() {
+        org.assertj.core.api.Assertions.assertThatNoException()
+            .isThrownBy(() -> Launcher.main(new String[] {"2000"}));
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"arg1"})
-
-    void test_CheckArg_one_true(String args) {assertTrue(CheckArg(args));}
-
-    @ParameterizedTest
-    @EmptySource
-    @ValueSource(strings = {"arg0"})
-    void test_CheckArg_empty_false(String args) { assertFalse(CheckArg()); }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"arg2"})
-    void test_CheckArg_more_false(String args) {
-        assertFalse(CheckArg(args, args));
+    @Test
+    void No_Argument_False() {
+        org.assertj.core.api.Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> Launcher.main(new String[] {}))
+            .withMessage("Argument error !");
     }
 }

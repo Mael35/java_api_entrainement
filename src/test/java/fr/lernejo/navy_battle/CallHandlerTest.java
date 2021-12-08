@@ -14,7 +14,8 @@ class CallHandlerTest {
     @Test
     void CallHandler_true() {
         try {
-            Http_Server.createServer(9876);
+            Http_Server http_server1 = new Http_Server("9876");
+            http_server1.createServer();
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:9876/ping"))
@@ -35,7 +36,8 @@ class CallHandlerTest {
     @Test
     void CallHandler_path_false() {
         try {
-            Http_Server.createServer(6789);
+            Http_Server http_server1 = new Http_Server("6789");
+            http_server1.createServer();
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:6789/something/false"))

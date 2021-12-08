@@ -5,8 +5,22 @@ import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 
 public class Http_Server  {
-    public static void createServer(int port) throws Exception {
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+
+    private final int port;
+
+    public Http_Server(String arg) {
+        try {
+            this.port = Integer.parseInt(arg);
+        }catch (NumberFormatException e){
+            throw new NumberFormatException("The port is not a number !");
+        }
+        if (this.port < 1024 || this.port > 65535){
+            throw new ArithmeticException("The number of the port is not correct !");
+        }
+    }
+
+    public void createServer() throws Exception {
+        HttpServer server = HttpServer.create(new InetSocketAddress(this.port), 0);
         server.setExecutor(Executors.newFixedThreadPool(1));
         server.createContext("/ping", new CallHandler());
         server.start();
