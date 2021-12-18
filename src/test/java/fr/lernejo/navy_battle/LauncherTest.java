@@ -2,10 +2,8 @@ package fr.lernejo.navy_battle;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Objects;
+import java.net.http.HttpClient;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LauncherTest {
 
@@ -20,6 +18,13 @@ class LauncherTest {
         org.assertj.core.api.Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(() -> Launcher.main(new String[] {}))
             .withMessage("Argument error !");
+    }
+
+    @Test
+    void Two_Argument_False() {
+        org.assertj.core.api.Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
+            .isThrownBy(() -> Launcher.main(new String[] {"-2200", "http://localhost:2300"}))
+            .withMessage("Port out of range !");
     }
 
     @Test

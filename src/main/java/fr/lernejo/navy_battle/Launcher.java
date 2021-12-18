@@ -1,6 +1,7 @@
 package fr.lernejo.navy_battle;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Launcher {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -11,6 +12,10 @@ public class Launcher {
         }
 
         else if (args.length == 2) {
+            if (Integer.parseInt(args[0]) < 1024 || Integer.parseInt(args[0]) > 65535){
+                throw new IllegalArgumentException("Port out of range !");
+            }
+
             Client_Server client_server = new Client_Server(args[0]);
             client_server.Send_Request(args[1]);
         }

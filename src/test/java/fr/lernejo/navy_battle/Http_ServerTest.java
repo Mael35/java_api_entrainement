@@ -17,7 +17,7 @@ class Http_ServerTest {
             s.connect(sa, 3000);
             return true;
         } catch (IOException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         return false;
     }
