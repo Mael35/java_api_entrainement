@@ -2,8 +2,6 @@ package fr.lernejo.navy_battle;
 
 import org.junit.jupiter.api.Test;
 
-import java.net.http.HttpClient;
-
 
 class LauncherTest {
 
