@@ -1,12 +1,21 @@
 package fr.lernejo.navy_battle;
 
+import com.sun.net.httpserver.HttpExchange;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import javax.validation.constraints.AssertTrue;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StartHandlerTest {
 
@@ -72,5 +81,21 @@ class StartHandlerTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    boolean check (JSONObject object){
+        return object.has("id") && object.has("url") && object.has("message");
+    }
+
+    @Test
+    void checkBody_true() {
+        JSONObject object = new JSONObject("{\"id\":\"1\", \"url\":\"http://localhost:4530\", \"message\":\"Start success\"}");
+        assertTrue(check(object));
+    }
+
+    @Test
+    void checkBody_false() {
+        JSONObject object = new JSONObject("{\"id\":\"1\", \"url\":\"http://localhost:4530\", \"test\":\"Start success\"}");
+        assertFalse(check(object));
     }
 }

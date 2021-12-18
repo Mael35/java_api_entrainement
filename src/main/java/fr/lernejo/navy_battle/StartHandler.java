@@ -28,7 +28,6 @@ public class StartHandler implements HttpHandler {
     private boolean checkBody(InputStream requestBody) throws IOException {
         String request = new String(requestBody.readAllBytes(), StandardCharsets.UTF_8);
         JSONObject object = new JSONObject(request);
-        System.out.println(object);
         return object.has("id") && object.has("url") && object.has("message");
     }
 
