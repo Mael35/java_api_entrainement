@@ -54,13 +54,13 @@ class FireHandlerTest {
     }
 
     @Test
-    void FireHandler_parameter_missing_false() {
+    void FireHandler_parameter_wrong_false() {
         try {
             Http_Server http_server = new Http_Server("7300");
             http_server.createServer();
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:7300/api/game/fire")).build();
+                .uri(URI.create("http://localhost:7300/api/game/fire?error=J10")).build();
             CompletableFuture<HttpResponse<String>> completableFuture = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
             completableFuture
                 .thenApplyAsync(HttpResponse::headers);
@@ -70,4 +70,5 @@ class FireHandlerTest {
             e.printStackTrace();
         }
     }
+
 }
